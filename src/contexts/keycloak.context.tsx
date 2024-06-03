@@ -10,28 +10,29 @@ type KeycloakContextProps = {
 }
 
 const oidcConfig: AuthProviderProps = {
-  authority: `${import.meta.env.REACT_APP_KEYCLOAK_ISSUER}`,
-  client_id: import.meta.env.REACT_APP_KEYCLOAK_CLIENT_ID,
+  authority: `${import.meta.env.VITE_KEYCLOAK_ISSUER}`,
+  client_id: import.meta.env.VITE_KEYCLOAK_CLIENT_ID,
   redirect_uri: window.location.href,
   userStore: new WebStorageStateStore({ store: window.localStorage }),
   onSigninCallback: (): void => {
     window.history.replaceState({}, document.title, window.location.pathname)
   },
-  post_logout_redirect_uri: import.meta.env.REACT_APP_KEYCLOAK_REDIRECT_URI,
+  post_logout_redirect_uri: import.meta.env.VITE_KEYCLOAK_REDIRECT_URI,
   metadata: {
-    issuer: `${import.meta.env.REACT_APP_KEYCLOAK_URL}`,
-    authorization_endpoint: `${import.meta.env.REACT_APP_KEYCLOAK_URL}/protocol/openid-connect/auth`,
-    token_endpoint: `${import.meta.env.REACT_APP_KEYCLOAK_URL}/protocol/openid-connect/token`,
-    introspection_endpoint: `${import.meta.env.REACT_APP_KEYCLOAK_URL}/protocol/openid-connect/token/introspect`,
-    userinfo_endpoint: `${import.meta.env.REACT_APP_KEYCLOAK_URL}/protocol/openid-connect/userinfo`,
-    end_session_endpoint: `${import.meta.env.REACT_APP_KEYCLOAK_URL}/protocol/openid-connect/logout`,
-    jwks_uri: `${import.meta.env.REACT_APP_KEYCLOAK_URL}/protocol/openid-connect/certs`,
-    check_session_iframe: `${import.meta.env.REACT_APP_KEYCLOAK_URL}/protocol/openid-connect/login-status-iframe.html`,
-    registration_endpoint: `${import.meta.env.REACT_APP_KEYCLOAK_URL}/clients-registrations/openid-connect`,
-    revocation_endpoint: `${import.meta.env.REACT_APP_KEYCLOAK_URL}/protocol/openid-connect/revoke`,
+    issuer: `${import.meta.env.VITE_KEYCLOAK_ISSUER}`,
+    authorization_endpoint: `${import.meta.env.VITE_KEYCLOAK_ISSUER}/protocol/openid-connect/auth`,
+    token_endpoint: `${import.meta.env.VITE_KEYCLOAK_ISSUER}/protocol/openid-connect/token`,
+    introspection_endpoint: `${import.meta.env.VITE_KEYCLOAK_ISSUER}/protocol/openid-connect/token/introspect`,
+    userinfo_endpoint: `${import.meta.env.VITE_KEYCLOAK_ISSUER}/protocol/openid-connect/userinfo`,
+    end_session_endpoint: `${import.meta.env.VITE_KEYCLOAK_ISSUER}/protocol/openid-connect/logout`,
+    jwks_uri: `${import.meta.env.VITE_KEYCLOAK_ISSUER}/protocol/openid-connect/certs`,
+    check_session_iframe: `${import.meta.env.VITE_KEYCLOAK_ISSUER}/protocol/openid-connect/login-status-iframe.html`,
+    registration_endpoint: `${import.meta.env.VITE_KEYCLOAK_ISSUER}/clients-registrations/openid-connect`,
+    revocation_endpoint: `${import.meta.env.VITE_KEYCLOAK_ISSUER}/protocol/openid-connect/revoke`,
   },
 }
 
-export const KeycloakContext: FC<KeycloakContextProps> = ({ children }) => (
-  <KeycloakAuthProvider {...oidcConfig}>{children}</KeycloakAuthProvider>
-)
+export const KeycloakContext: FC<KeycloakContextProps> = ({ children }) => {
+  console.log(oidcConfig)
+  return <KeycloakAuthProvider {...oidcConfig}>{children}</KeycloakAuthProvider>
+}
