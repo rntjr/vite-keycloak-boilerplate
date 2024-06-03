@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { KeycloakContext } from './keycloak.context.tsx'
 import { hasAuthParams, useAuth } from 'react-oidc-context'
 import { useEffect, useState } from 'react'
 
@@ -37,9 +36,5 @@ export const RouterContext = () => {
     return <div>Oops... {auth.error.message}</div>
   }
 
-  return (
-    <KeycloakContext>
-      <RouterProvider router={router} />
-    </KeycloakContext>
-  )
+  return <RouterProvider router={router} />
 }
